@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>API Wars</title>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
+    <script src="jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid top-navbar">
+            <div class="navbar-header">
+                <a class="navbar-brand site-title" href="/">Api Wars</a>
+            </div>
+            <ul class="nav navbar-nav">
+            <li class="active"><a class="header-link" href="/">Planet List</a></li>
+            <li><a class="header-link" id="voting-stats-button" href="#" data-toggle="modal" data-target="#statsModal">Voting Statistics</a></li>
+            {% if login_username is not defined %}
+            <li><a class="header-link" href="{{url_for('register')}}">Registration</a></li>
+            <li><a class="header-link" href="{{url_for('login')}}">Login</a></li>
+            {% endif %}
+            {% if login_username is defined %}
+            <li><a class="header-link" href="{{url_for('logout')}}">Logout</a></li>
+            {% endif %}
+            </ul>
+            {% if login_username is defined %}
+            <p class="member-message">You are logged in as {{login_username}}</p>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="modal fade in" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="statsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-container-stats">
+                <div class="modal-header">
+                <span id="statsModalLabel" style="margin-left: 1em">Voting Stats</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <hr class="modal-hr">
+                </div>
+                <div class="modal-body">
+                <table id="stats-table">
+                    <thead>
+                        <th class="modal-titles">Planet name</th>
+                        <th class="modal-titles">Received votes</th>
+                    </thead>
+                    <tbody id="stats-table-content">
+                    </tbody>
+                </table>
+                </div>
+                <hr class="modal-hr">
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-modal-button" data-dismiss="modal">Close</button>
+                </div>
+            </div> 
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
+
